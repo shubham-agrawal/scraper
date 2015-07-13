@@ -30,7 +30,6 @@ soup = BeautifulSoup(tx)
 categories = soup.findAll('div', class_='catHd')
 data = []
 for i in range(len(categories)):
-  # print(categories[i].find('a').string ,categories[i].find('a')['href'] )
   br.open(categories[i].find('a')['href'])
   tx = br.response().read()
   soup = BeautifulSoup(tx)
@@ -47,12 +46,4 @@ for i in range(len(categories)):
     for k in range(len(x)):
       y = x[k].findAll('a')
       for l in range(len(y)):
-        # print (y[j].decode_contents(formatter="html").split("</span>")[1],y[j]['href'])
-        br.open(y[l]['href'])
-        tx = br.response().read()
-        soup = BeautifulSoup(tx)
-        category = y[l].decode_contents(formatter="html").split("</span>")[1]
-        suppliers =  soup.find('p', class_='flt_wd').decode_contents(formatter="html").split(" ")[0]
-        data.append(categories[i].find('a').string+','+subcatergory+','+category+','+suppliers+'\n')
-with open("output.csv", "wb") as f:
-  f.writelines(data)
+        print (y[j].decode_contents(formatter="html").split("</span>")[1],y[j]['href'])
