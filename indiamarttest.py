@@ -24,7 +24,7 @@ br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
 
 # User-Agent (this is cheating, ok?)
 br.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
-br.open('http://www.sourbook.com/zipavuj.php?G7eeqpILGqJt8oq2cI0jxA=Q6tQjN5FbYJdlaouGd0SITZ4OBFGxjYJkz3oFMd1WM0wtJ%2BjekGIy2WqT%2FOqsafWLj5AajYdQKDkcUgQ9vD%2F0aIYiHlrvcc5BS%2FswHoIe28%3D')
+br.open('http://www.sourbook.com/zipavuj.php?G7eeqpILGqJt8oq2cI0jxA=Q6tQjN5FbYJdlaouGd0SIb%2B1L%2B4nPR6yTLvhceRjn%2BABh%2Bfb50HKaFXKNppeyWFQPM3cg9iPK%2FGc3Xo%2B2oZzCQ%3D%3D')
 tx = br.response().read()
 soup = BeautifulSoup(tx)
 try:
@@ -40,4 +40,4 @@ for k in range(len(x)):
     soup = BeautifulSoup(tx)
     category = y[l].decode_contents(formatter="html").split("</span>")[1]
     suppliers =  soup.find('p', class_='flt_wd').decode_contents(formatter="html").split(" ")[0]
-    print('Industrial Plant & Machine'+','+'Manufacturing & Assembling Services'+','+category+','+suppliers)
+    print('Industrial Plant & Machine'+','+'Milling & Grinding Tools'+','+category+','+suppliers)
