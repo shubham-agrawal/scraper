@@ -28,9 +28,9 @@ br.open('http://www.sourbook.com/zipavuj.php?G7eeqpILGqJt8oq2cI0jxA=Q6tQjN5FbYJd
 tx = br.response().read()
 soup = BeautifulSoup(tx)
 a = soup.findAll('li', class_='q_cb')
-for j in range(2,20):
-  subcatergory = a[j].find('a').string;
-  br.open(a[j].find('a')['href'])
+for j in range(len(a)):
+  subcatergory = a[j].parent.findAll('li')[1].find('a').string;
+  br.open(a[j].parent.findAll('li')[1].find('a')['href'])
   tx = br.response().read()
   soup = BeautifulSoup(tx)
   try:
