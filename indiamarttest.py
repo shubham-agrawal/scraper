@@ -67,3 +67,7 @@ for i in range(len(categories)):
         except:
           category = 'Not-available'
         print(categoryname+','+subcatergory+','+category+','+url)
+        data.append(categoryname+','+subcatergory+','+category+','+url+'\n')
+text_file = open("data.txt", "w")
+text_file.write(data)
+text_file.close()
