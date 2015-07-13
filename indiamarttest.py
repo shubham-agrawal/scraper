@@ -28,18 +28,26 @@ br.open('http://dir.indiamart.com')
 tx = br.response().read()
 soup = BeautifulSoup(tx)
 categories = soup.findAll('div', class_='catHd')
+try:
+  categoryname = categories[i].find('a').string
+except:
+  categoryname = 'Not-available'
 data = []
 for i in range(len(categories)):
-  # print(categories[i].find('a').string ,categories[i].find('a')['href'] )
   br.open(categories[i].find('a')['href'])
   tx = br.response().read()
   soup = BeautifulSoup(tx)
   uls = soup.find('div', class_='mid').findAll('ul')
   a = []
   for m in range(len(uls)):
-    a.append(uls[m].findAll('li'))
+    lis = uls[m].findAll('li')
+    for n in range(len(lis)):
+      a.append(lis[n])
   for j in range(len(a)):
-    subcatergory = a[j].find('a').string;
+    try:
+      subcatergory = a[j].find('a').string;
+    except:
+      subcatergory = 'Not-available'
     br.open(a[j].find('a')['href'])
     tx = br.response().read()
     soup = BeautifulSoup(tx)
@@ -50,6 +58,12 @@ for i in range(len(categories)):
     for k in range(len(x)):
       y = x[k].findAll('a')
       for l in range(len(y)):
-        url = y[l].decode_contents(formatter="html").split("</span>")[1],y[j]['href']
-        category = y[l].decode_contents(formatter="html").split("</span>")[1]
-        data.append(categories[i].find('a').string+','+subcatergory+','+category+','+url)
+        try:
+          url = y[l]['href']
+        except:
+          url = 'Not-available'
+        try:
+          category = y[l].decode_contents(formatter="html").split("</span>")[1]
+        except:
+          category = 'Not-available'
+        print(categoryname+','+subcatergory+','+category+','+url)
