@@ -28,12 +28,12 @@ br.open('http://dir.indiamart.com')
 tx = br.response().read()
 soup = BeautifulSoup(tx)
 categories = soup.findAll('div', class_='catHd')
-try:
-  categoryname = categories[i].find('a').string
-except:
-  categoryname = 'Not-available'
 data = []
 for i in range(len(categories)):
+  try:
+    categoryname = categories[i].find('a').string
+  except:
+    categoryname = 'Not-available'
   br.open(categories[i].find('a')['href'])
   tx = br.response().read()
   soup = BeautifulSoup(tx)
