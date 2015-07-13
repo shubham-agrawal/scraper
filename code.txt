@@ -1,0 +1,62 @@
+tx = br.response().read()
+soup = BeautifulSoup(tx)
+productName = soup.findAll('div', class_='uiv2-product-name')[0].findAll('h1')[0].string
+companyName = soup.findAll('div', class_='uiv2-brand-name')[0].findAll('a')[0].string.replace("&amp;", "&")
+productPrice =  soup.findAll('div', class_='uiv2-price')[0].string
+mrp = soup.findAll('div','uiv2-savings')[0].findAll('span')[0].decode_contents(formatter="html").split(":")[1]
+image = soup.findAll('div','uiv2-product-large-img-container')[0].find('a')['href'].split('//')[1]
+size = soup.findAll('div',class_='uiv2-product-size')[0].find(name="input",attrs={'type':'radio','checked':True}).parent.find('label').string.split('-')[0].strip()
+collections = []
+breadcrumbhtml = soup.findAll('div','breadcrumb-item')
+for i in range(len(breadcrumbhtml)):
+  collections.append(breadcrumbhtml[i].find('span').string.replace("&amp;", "&"))
+
+
+try {
+ companyName = document.getElementsByClassName('uiv2-brand-name')[0].querySelector('a').innerHTML.replace(/&amp;/g, '&')
+} catch(err) {
+  companyName = null;
+}
+try {
+  productName = document.getElementsByClassName('uiv2-product-name')[0].querySelector('h1').innerHTML.replace(/&amp;/g, '&')
+} catch (err) {
+  productName = null;
+}
+try {
+  productprice = document.getElementsByClassName('uiv2-price')[0].innerHTML.replace(/&amp;/g, '&')
+} catch (err) {
+  productprice = null;
+}
+try {
+  mrp = document.getElementsByClassName('uiv2-savings')[0].querySelector('span').innerHTML.split(":")[1].replace(/&amp;/g, '&')
+} catch (err) {
+  mrp = null;
+}
+try {
+  image = document.getElementsByClassName('uiv2-product-large-img-container')[0].querySelector('a').href
+} catch (err) {
+  image = null;
+}
+try {
+ size = document.getElementsByClassName('uiv2-product-size')[0].querySelector('input[type="radio"]:checked').parentElement.querySelector('label').innerHTML.split('-')[0].replace(/\s+/g, " ").replace(/&amp;/g, '&').trim();
+} catch(err) {
+  size = null;
+}
+try {
+  var breadcrumbs = [];
+  var breadcrumbhtml = document.getElementsByClassName('breadcrumb-item')
+  for(i=0;i<breadcrumbhtml.length;i++) {
+    breadcrumbs.push(breadcrumbhtml[i].querySelector('span').innerHTML.replace(/&amp;/g, '&'))
+  }
+} catch(err) {
+  breadcrumbs = [];
+}
+console.log({company:companyName,product:productName,price:productprice,mrp:mrp,image:image,catergories:breadcrumbs, size:size})
+
+
+
+var a = docCookies.getItem("_bb_rdt");
+var b = new Date();
+b.setDate(b.getDate() + 365);
+docCookies.setItem("_bb_rdt", a.split(".")[0] + ".0", b.toUTCString(), "/");
+location.reload()
